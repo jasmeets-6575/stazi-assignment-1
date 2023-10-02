@@ -17,12 +17,16 @@ const Page = () => {
   );
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { search } = useAppSelector((state) => state.search);
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const displayedData = cardData.slice(startIndex, endIndex);
+  const filteredData = cardData.filter((car) =>
+    car.name.toLowerCase().includes(search.toLowerCase())
+  );
+  const displayedData = filteredData.slice(startIndex, endIndex);
 
   const pageNumbers = Array.from(
     { length: totalPages },

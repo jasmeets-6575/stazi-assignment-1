@@ -1,18 +1,28 @@
 import { AiOutlineSearch, AiOutlineCaretDown } from "react-icons/ai";
 
-const Navbar = () => {
+interface INavbarProps {
+  inputValue: string;
+  handleInputChange: (query: string) => void;
+}
+
+const Navbar: React.FC<INavbarProps> = ({ inputValue, handleInputChange }) => {
   return (
     <div className="flex gap-8 px-6 py-4 bg-gray-100 w-[90vw] mx-auto rounded-xl shadow-lg">
-      <form className="flex bg-white rounded-lg items-center justify-between w-1/5">
+      <div className="flex bg-white rounded-lg items-center justify-between w-1/5">
         <input
           type="text"
           className="rounded-lg outline-none px-4 py-2"
-          placeholder="Search"
+          placeholder="Search by name"
+          value={inputValue}
+          onChange={(e) => {
+            let query = e.target.value;
+            if (handleInputChange) handleInputChange(query);
+          }}
         />
         <button type="submit">
           <AiOutlineSearch className="text-gray-600 text-xl mr-[6px]" />
         </button>
-      </form>
+      </div>
 
       <button className="flex items-center text-gray-700 gap-1 tracking-wide">
         <span>Relevance</span>
