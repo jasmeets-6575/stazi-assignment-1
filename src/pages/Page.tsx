@@ -1,8 +1,14 @@
 import { useEffect } from "react";
 import Card from "../components/Card";
-import { setCurrentPage, setTotalItems } from "../features/PaginationSlice";
+import {
+  setCurrentPage,
+  setTotalItems,
+  nextPage,
+  prevPage,
+} from "../features/PaginationSlice";
 import { useAppDispatch, useAppSelector } from "../store/store";
-import { Car, cardData } from "../utils/cardData";
+import { cardData } from "../utils/cardData";
+import { useNavigate } from "react-router-dom";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 
 const Page = () => {
@@ -10,6 +16,7 @@ const Page = () => {
     (store) => store.pagination
   );
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
@@ -21,6 +28,21 @@ const Page = () => {
     { length: totalPages },
     (_, index) => index + 1
   );
+
+  const handlePageChange = (newPage: number) => {
+    dispatch(setCurrentPage(newPage));
+    navigate(`/${newPage}`);
+  };
+
+  const handleNextClick = () => {
+    dispatch(nextPage());
+    navigate(`/${currentPage + 1}`);
+  };
+
+  const handlePrevClick = () => {
+    dispatch(prevPage());
+    navigate(`/${currentPage - 1}`);
+  };
 
   useEffect(() => {
     dispatch(setTotalItems(cardData.length));
@@ -39,26 +61,40 @@ const Page = () => {
       </div>
 
       <div className="flex items-center justify-between p-4 bg-gray-100 mt-8 rounded-lg">
-        <h1 className="font-semibold tracking-wide text-lg">60 items</h1>
+        <h1 className="font-semibold tracking-wide text-lg">
+          Total items = {totalItems}
+        </h1>
 
         <div className="flex items-center">
-          <div className="flex items-center font-semibold">
+          <button
+            className="flex items-center font-bold mr-2"
+            onClick={handlePrevClick}
+            disabled={currentPage === 1}
+          >
             <GrFormPrevious className=" text-xl" />
-            <h1>Prev</h1>
-          </div>
+            <span>Prev</span>
+          </button>
 
           {pageNumbers.map((_, index) => {
             return (
-              <button key={index} className="p-1 m-1 font-bold ">
+              <button
+                key={index}
+                className="p-1 m-1 font-bold text-lg mx-[5px]"
+                onClick={() => handlePageChange(index + 1)}
+              >
                 {index + 1}
               </button>
             );
           })}
 
-          <div className="flex items-center font-semibold">
-            <h1>Next</h1>
+          <button
+            className="flex items-center font-bold ml-3"
+            onClick={handleNextClick}
+            disabled={currentPage === totalPages}
+          >
+            <span>Next</span>
             <GrFormNext className="text-[22px]" />
-          </div>
+          </button>
         </div>
       </div>
     </>
