@@ -16,7 +16,6 @@ const router = createBrowserRouter([
         errorElement: <SinglePageError />,
       },
       {
-        index: true,
         path: "page/:id",
         element: <Page />,
         errorElement: <SinglePageError />,
