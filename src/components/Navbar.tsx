@@ -1,4 +1,6 @@
 import { AiOutlineSearch, AiOutlineCaretDown } from "react-icons/ai";
+import { useAppDispatch } from "../store/store";
+import { setCurrentPage } from "../features/PaginationSlice";
 
 interface INavbarProps {
   inputValue: string;
@@ -6,6 +8,7 @@ interface INavbarProps {
 }
 
 const Navbar: React.FC<INavbarProps> = ({ inputValue, handleInputChange }) => {
+  const dispatch = useAppDispatch();
   return (
     <div className="flex gap-8 px-6 py-4 bg-gray-100 w-[90vw] mx-auto rounded-xl shadow-lg">
       <div className="flex bg-white rounded-lg items-center justify-between w-1/5">
@@ -16,6 +19,7 @@ const Navbar: React.FC<INavbarProps> = ({ inputValue, handleInputChange }) => {
           value={inputValue}
           onChange={(e) => {
             let query = e.target.value;
+            dispatch(setCurrentPage(1));
             if (handleInputChange) handleInputChange(query);
           }}
         />

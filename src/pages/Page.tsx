@@ -21,11 +21,11 @@ const Page = () => {
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
   const filteredData = cardData.filter((car) =>
     car.name.toLowerCase().includes(search.toLowerCase())
   );
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
   const displayedData = filteredData.slice(startIndex, endIndex);
 
   const pageNumbers = Array.from(
