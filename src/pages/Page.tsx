@@ -8,7 +8,7 @@ import {
 } from "../features/PaginationSlice";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import { cardData } from "../utils/cardData";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 
 const Page = () => {
@@ -70,35 +70,39 @@ const Page = () => {
         </h1>
 
         <div className="flex items-center">
-          <button
-            className="flex items-center font-bold mr-2"
-            onClick={handlePrevClick}
-            disabled={currentPage === 1}
-          >
-            <GrFormPrevious className=" text-xl" />
-            <span>Prev</span>
-          </button>
-
+          <Link to={`page/${currentPage - 1}`}>
+            <button
+              className="flex items-center font-bold mr-2"
+              onClick={handlePrevClick}
+              disabled={currentPage === 1}
+            >
+              <GrFormPrevious className=" text-xl" />
+              <span>Prev</span>
+            </button>
+          </Link>
           {pageNumbers.map((_, index) => {
             return (
-              <button
-                key={index}
-                className="p-1 m-1 font-bold text-lg mx-[5px]"
-                onClick={() => handlePageChange(index + 1)}
-              >
-                {index + 1}
-              </button>
+              <Link to={`page/${index + 1}`}>
+                <button
+                  key={index}
+                  className="p-1 m-1 font-bold text-lg mx-[5px]"
+                  onClick={() => handlePageChange(index + 1)}
+                >
+                  {index + 1}
+                </button>
+              </Link>
             );
           })}
-
-          <button
-            className="flex items-center font-bold ml-3"
-            onClick={handleNextClick}
-            disabled={currentPage === totalPages}
-          >
-            <span>Next</span>
-            <GrFormNext className="text-[22px]" />
-          </button>
+          <Link to={`page/${currentPage + 1}`}>
+            <button
+              className="flex items-center font-bold ml-3"
+              onClick={handleNextClick}
+              disabled={currentPage === totalPages}
+            >
+              <span>Next</span>
+              <GrFormNext className="text-[22px]" />
+            </button>
+          </Link>
         </div>
       </div>
     </>

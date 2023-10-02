@@ -1,6 +1,5 @@
-import { useNavigation } from "react-router-dom";
+import { Outlet, useNavigation } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import Page from "./Page";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import { setSearch } from "../features/SearchSlice";
 
@@ -19,7 +18,7 @@ const HomeLayout = () => {
     <div className="bg-gray-200">
       <Navbar inputValue={search} handleInputChange={handleInputChange} />
       <section className="mx-auto my-0 py-5 px-2 w-[90vw] ">
-        {isPageLoading ? <div className="loading" /> : <Page />}
+        {isPageLoading ? <div className="loading" /> : <Outlet />}
       </section>
     </div>
   );
