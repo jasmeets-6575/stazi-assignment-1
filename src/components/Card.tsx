@@ -46,7 +46,9 @@ const Card = ({ item }: Props) => {
         </div>
 
         <div className="flex items-center justify-between pt-[10px]">
-          <span className="text-[20px] font-semibold">${item.price}/month</span>
+          <span className="text-[20px] font-semibold">
+            ${item.price} /month
+          </span>
           <div className="flex justify-between space-x-2 items-center">
             <AiOutlineHeart className=" text-[28px] p-[2.5px] text-blue-500 border border-blue-300 bg-blue-100 rounded-lg" />
             <button className="text-sm px-3 py-[6px] bg-blue-400 rounded-lg text-white tracking-wide font-bold">
